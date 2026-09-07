@@ -16,7 +16,11 @@ let errorMessage: string | undefined;
 try {
   menu = await getPublishedMenu("cuatro20");
 } catch (error) {
-  console.error("[menu-blocks] Error al obtener el menú cuatro20:", error);
+  console.error("[menu-blocks]", {
+    name: error instanceof Error ? error.name : "UnknownError",
+    message: error instanceof Error ? error.message : String(error)
+  });
+  Astro.response.status = 500;
   errorMessage = "No fue posible conectar con el archivo del menú.";
 }
 
