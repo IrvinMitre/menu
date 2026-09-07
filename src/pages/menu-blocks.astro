@@ -7,6 +7,7 @@ import MenuCategory from "../components/menu/MenuCategory.astro";
 import MenuEmpty from "../components/menu/MenuEmpty.astro";
 import MenuError from "../components/menu/MenuError.astro";
 import MenuHeader from "../components/menu/MenuHeader.astro";
+import { getSafeMongoErrorDetails } from "../lib/mongodb";
 import { getPublishedMenu } from "../services/menu.service";
 import type { Menu } from "../types/menu";
 
@@ -16,10 +17,7 @@ let errorMessage: string | undefined;
 try {
   menu = await getPublishedMenu("cuatro20");
 } catch (error) {
-  console.error("[menu-blocks]", {
-    name: error instanceof Error ? error.name : "UnknownError",
-    message: error instanceof Error ? error.message : String(error)
-  });
+  console.error("[menu-blocks]", getSafeMongoErrorDetails(error));
   Astro.response.status = 500;
   errorMessage = "No fue posible conectar con el archivo del menú.";
 }

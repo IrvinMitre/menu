@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { getSafeMongoErrorDetails } from "../../../lib/mongodb";
 import { getPublishedMenu } from "../../../services/menu.service";
 
 export const GET: APIRoute = async ({ params }) => {
@@ -26,9 +27,7 @@ export const GET: APIRoute = async ({ params }) => {
       headers: { "Content-Type": "application/json" }
     });
   } catch (error) {
-    const detail = error instanceof Error ? error.message : "Error desconocido";
-    const safeDetail = detail.replace(/mongodb(?:\+srv)?:\/\/[^\s]+/gi, "mongodb://[redacted]");
-    console.error(`[menu-api] ${safeDetail}`);
+    console.error("[menu-api]", getSafeMongoErrorDetails(error));
 
     return new Response(JSON.stringify({ message: "No fue posible consultar el menú." }), {
       status: 500,
