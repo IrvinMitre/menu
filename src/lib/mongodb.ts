@@ -19,5 +19,5 @@ export function getMongoClient() {
 }
 
 export function getMenuCollection() {
-  return getMongoClient().db("cuatro20").collection("menus");
+  return getMongoClient().db("menu").collection("menu");
 }

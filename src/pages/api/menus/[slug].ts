@@ -25,7 +25,11 @@ export const GET: APIRoute = async ({ params }) => {
       status: 200,
       headers: { "Content-Type": "application/json" }
     });
-  } catch {
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : "Error desconocido";
+    const safeDetail = detail.replace(/mongodb(?:\+srv)?:\/\/[^\s]+/gi, "mongodb://[redacted]");
+    console.error(`[menu-api] ${safeDetail}`);
+
     return new Response(JSON.stringify({ message: "No fue posible consultar el menú." }), {
       status: 500,
       headers: { "Content-Type": "application/json" }
