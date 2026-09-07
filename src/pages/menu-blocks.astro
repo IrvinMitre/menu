@@ -8,15 +8,20 @@ import MenuEmpty from "../components/menu/MenuEmpty.astro";
 import MenuError from "../components/menu/MenuError.astro";
 import MenuHeader from "../components/menu/MenuHeader.astro";
 import { getPublishedMenu } from "../services/menu.service";
+import type { Menu } from "../types/menu";
 
-let menu = null;
+let menu: Menu | null = null;
 let errorMessage: string | undefined;
 
 try {
   menu = await getPublishedMenu("cuatro20");
-  if (!menu) errorMessage = "No hay un menú publicado con este identificador.";
-} catch {
+} catch (error) {
+  console.error("[menu-blocks] Error al obtener el menú cuatro20:", error);
   errorMessage = "No fue posible conectar con el archivo del menú.";
+}
+
+if (!errorMessage && !menu) {
+  errorMessage = "No hay un menú publicado con este identificador.";
 }
 ---
 
