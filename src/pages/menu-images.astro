@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/layout/SiteHeader.astro";
+import MenuImagePages from "../components/menu/MenuImagePages.astro";
+---
+
+<BaseLayout title="Menú original · CU4TRO20">
+  <SiteHeader current="images" />
+  <main class="original-menu-page">
+    <div class="original-intro">
+      <p class="eyebrow">Documento original</p>
+      <h1>Menú impreso</h1>
+      <p>Consulta las páginas tal como fueron entregadas al archivo.</p>
+    </div>
+    <MenuImagePages />
+  </main>
+</BaseLayout>

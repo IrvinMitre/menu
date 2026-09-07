@@ -1,0 +1,12 @@
+---
+type Props = {
+  message?: string;
+};
+
+const { message = "No fue posible consultar el menú en este momento." } = Astro.props;
+---
+
+<div class="menu-state menu-state-error" role="alert">
+  <h2>Consulta interrumpida</h2>
+  <p>{message}</p>
+</div>

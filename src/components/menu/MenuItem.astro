@@ -1,0 +1,19 @@
+---
+import MenuPrice from "./MenuPrice.astro";
+import type { MenuItem as MenuItemType } from "../../types/menu";
+
+type Props = {
+  item: MenuItemType;
+};
+
+const { item } = Astro.props;
+---
+
+<li class:list={["menu-item", { "is-unavailable": !item.available }]}>
+  <div class="menu-item-heading">
+    <h3>{item.name}</h3>
+    <MenuPrice item={item} />
+  </div>
+  {item.description && <p>{item.description}</p>}
+  {!item.available && <small class="availability-note">No disponible</small>}
+</li>

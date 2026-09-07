@@ -1,0 +1,20 @@
+---
+import type { MenuItem } from "../../types/menu";
+
+type Props = {
+  item: MenuItem;
+};
+
+const { item } = Astro.props;
+const formatter = new Intl.NumberFormat("es-MX", {
+  style: "currency",
+  currency: "MXN",
+  maximumFractionDigits: 0
+});
+---
+
+<strong class="menu-price">
+  {"prices" in item
+    ? `GDE ${formatter.format(item.prices.large)} / CH ${formatter.format(item.prices.small)}`
+    : formatter.format(item.price)}
+</strong>

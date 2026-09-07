@@ -1,0 +1,28 @@
+---
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+import EditorialCaption from "./EditorialCaption.astro";
+
+type Props = {
+  src: string;
+  alt: string;
+  caption?: string;
+  position?: "header" | "left" | "right";
+};
+
+const { src, alt, caption, position = "header" } = Astro.props;
+const publicPath = join(process.cwd(), "public", src.replace(/^\//, ""));
+const exists = existsSync(publicPath);
+---
+
+<figure class:list={["alien-image", `alien-image-${position}`]}>
+  {exists ? (
+    <img src={src} alt={alt} loading={position === "header" ? "eager" : "lazy"} />
+  ) : (
+    <div class="image-placeholder" role="img" aria-label={`Falta el archivo ${src.replace(/^\//, "")}`}>
+      <span>Falta agregar</span>
+      <strong>{src.replace(/^\//, "")}</strong>
+    </div>
+  )}
+  {caption && <EditorialCaption>{caption}</EditorialCaption>}
+</figure>

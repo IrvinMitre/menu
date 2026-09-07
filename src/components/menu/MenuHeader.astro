@@ -1,0 +1,17 @@
+---
+import type { Menu } from "../../types/menu";
+
+type Props = {
+  menu: Menu;
+};
+
+const { menu } = Astro.props;
+---
+
+<header class="menu-header">
+  <p class="eyebrow">Registro gastronómico / 20</p>
+  <h1>{menu.businessName}</h1>
+  {menu.subtitle && <p class="menu-subtitle">{menu.subtitle}</p>}
+  <div class="header-rule" aria-hidden="true"></div>
+  <p class="header-note">Documento de consulta · Precios en {menu.currency}</p>
+</header>

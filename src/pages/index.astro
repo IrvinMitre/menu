@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/layout/SiteHeader.astro";
+---
+
+<BaseLayout title="CU4TRO20 · Pizza & Cafe" description="Consulta el menú de CU4TRO20 Pizza & Cafe.">
+	<SiteHeader />
+	<main class="landing">
+		<section class="landing-intro" aria-labelledby="landing-title">
+			<p class="eyebrow">CU4TRO20 / Pizza &amp; Cafe</p>
+			<h1 id="landing-title">El menú</h1>
+			<p class="landing-lede">Dos formas de consultar el archivo gastronómico: la pieza impresa original o una lectura organizada por bloques.</p>
+		</section>
+		<nav class="landing-options" aria-label="Versiones del menú">
+			<a class="landing-option" href="/menu-images">
+				<strong>Ver menú original</strong>
+				<span>Las páginas tal como fueron impresas.</span>
+			</a>
+			<a class="landing-option" href="/menu-blocks">
+				<strong>Ver menú por bloques</strong>
+				<span>Productos consultados desde el archivo publicado.</span>
+			</a>
+		</nav>
+		<p class="landing-stamp">Documento abierto al público · MXN</p>
+	</main>
+</BaseLayout>

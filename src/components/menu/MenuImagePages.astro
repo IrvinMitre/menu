@@ -1,0 +1,23 @@
+---
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+
+const pages = [
+  { src: "/menu-pages/menu-01.png", alt: "Página uno del menú original de CU4TRO20" },
+  { src: "/menu-pages/menu-02.png", alt: "Página dos del menú original de CU4TRO20" }
+];
+---
+
+<div class="original-pages">
+  {pages.map((page, index) => {
+    const exists = existsSync(join(process.cwd(), "public", page.src.replace(/^\//, "")));
+    return exists ? (
+      <img src={page.src} alt={page.alt} loading={index === 0 ? "eager" : "lazy"} />
+    ) : (
+      <div class="image-placeholder original-placeholder" role="img" aria-label={`Falta el archivo ${page.src.replace(/^\//, "")}`}>
+        <span>Falta agregar</span>
+        <strong>{page.src.replace(/^\//, "")}</strong>
+      </div>
+    );
+  })}
+</div>

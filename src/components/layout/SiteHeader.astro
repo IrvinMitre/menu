@@ -1,0 +1,18 @@
+---
+type Props = {
+  current?: string;
+};
+
+const { current } = Astro.props;
+---
+
+<header class="site-header">
+  <a class="brand-mark" href="/" aria-label="CU4TRO20, volver al inicio">
+    <span>CU4TRO20</span>
+    <small>Pizza &amp; Cafe</small>
+  </a>
+  <nav aria-label="Navegación principal">
+    <a class:list={[{ "is-current": current === "images" }]} href="/menu-images">Original</a>
+    <a class:list={[{ "is-current": current === "blocks" }]} href="/menu-blocks">Por bloques</a>
+  </nav>
+</header>

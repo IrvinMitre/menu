@@ -1,0 +1,21 @@
+---
+import MenuItem from "./MenuItem.astro";
+import type { MenuCategory as MenuCategoryType } from "../../types/menu";
+
+type Props = {
+  category: MenuCategoryType;
+};
+
+const { category } = Astro.props;
+---
+
+<section class="menu-category" aria-labelledby={`category-${category.id}`}>
+  <h2 id={`category-${category.id}`}>{category.name}</h2>
+  {category.items.length > 0 ? (
+    <ul class="menu-items">
+      {category.items.map((item) => <MenuItem item={item} />)}
+    </ul>
+  ) : (
+    <p class="menu-empty-category">Esta sección no tiene productos publicados.</p>
+  )}
+</section>

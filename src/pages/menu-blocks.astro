@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/layout/SiteHeader.astro";
+import PaperSheet from "../components/layout/PaperSheet.astro";
+import AlienImage from "../components/menu/AlienImage.astro";
+import MenuCategory from "../components/menu/MenuCategory.astro";
+import MenuEmpty from "../components/menu/MenuEmpty.astro";
+import MenuError from "../components/menu/MenuError.astro";
+import MenuHeader from "../components/menu/MenuHeader.astro";
+import { getPublishedMenu } from "../services/menu.service";
+
+let menu = null;
+let errorMessage: string | undefined;
+
+try {
+  menu = await getPublishedMenu("cuatro20");
+  if (!menu) errorMessage = "No hay un menú publicado con este identificador.";
+} catch {
+  errorMessage = "No fue posible conectar con el archivo del menú.";
+}
+---
+
+<BaseLayout title="Menú por bloques · CU4TRO20">
+  <SiteHeader current="blocks" />
+  <PaperSheet class="menu-page">
+    {errorMessage ? (
+      <MenuError message={errorMessage} />
+    ) : menu ? (
+      <>
+        <MenuHeader menu={menu} />
+        <AlienImage
+          src="/alien-images/alien-header.webp"
+          alt="Fotografía en blanco y negro de un alienígena"
+          caption="Registro visual de actividad no identificada."
+          position="header"
+        />
+        <div class="menu-grid">
+          {menu.categories.map((category, index) => (
+            <div class:list={["menu-grid-block", { "menu-grid-wide": index === 0 }]}>
+              <MenuCategory category={category} />
+              {index === 1 && (
+                <AlienImage
+                  src="/alien-images/alien-left.webp"
+                  alt="Fotografía en blanco y negro de un alienígena"
+                  caption="Archivo de evidencia clasificada."
+                  position="left"
+                />
+              )}
+              {index === 3 && (
+                <AlienImage
+                  src="/alien-images/alien-right.webp"
+                  alt="Fotografía en blanco y negro de un alienígena"
+                  caption="Avistamiento documentado. Origen desconocido."
+                  position="right"
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      </>
+    ) : (
+      <MenuEmpty />
+    )}
+  </PaperSheet>
+</BaseLayout>
